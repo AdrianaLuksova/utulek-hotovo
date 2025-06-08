@@ -1,0 +1,35 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #CA9EC9;">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+      <img src="{% static 'images/logo.png' %}"
+           alt="Logo"
+           style="height: 50px; width: auto; margin-right: 10px;">
+      <span style="font-weight: bold;">Naše Tlapičky</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}" style="font-weight: bold;">Hlavní stránka</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'seznam_zvirat' %}" style="font-weight: bold;">Seznam zvířat</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'seznam_utulku' %}" style="font-weight: bold;">Útulky</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'archiv_zvirat' %}" style="font-weight: bold;">Archiv zvířat</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'kontakt' %}" style="font-weight: bold;">Kontakt a dotaz</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

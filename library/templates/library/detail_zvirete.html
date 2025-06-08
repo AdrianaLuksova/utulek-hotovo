@@ -1,0 +1,41 @@
+{% extends 'library/zaklad/base.html' %}
+{% load static %}
+
+{% block content %}
+  <h1 class="my-4">{{ zvire.jmeno }}</h1>
+
+  <div class="card mb-4 p-4">
+    <div class="row g-4 align-items-start">
+      <div class="col-md-4">
+        {% if zvire.fotografie %}
+          <img src="{{ zvire.fotografie.url }}"
+               class="img-fluid rounded"
+               alt="{{ zvire.jmeno }}"
+               style="width: 100%; max-width: 300px; height: auto; object-fit: cover;">
+        {% else %}
+          <img src="{% static 'images/placeholder.png' %}"
+               class="img-fluid rounded"
+               alt="Žádný obrázek"
+               style="width: 100%; max-width: 300px; height: auto; object-fit: cover;">
+        {% endif %}
+      </div>
+      <div class="col-md-8">
+        <p><strong>Druh:</strong> {{ zvire.druh.nazev }}</p>
+        {% if zvire.plemeno %}
+          <p><strong>Plemeno:</strong> {{ zvire.plemeno }}</p>
+        {% endif %}
+        <p><strong>Stav zdraví:</strong> {{ zvire.get_stav_zdravi_display }}</p>
+        <p><strong>Věk:</strong> {{ zvire.vek }} let</p>
+        <p><strong>Popis:</strong> {{ zvire.popis }}</p>
+        <p><strong>Útulek:</strong> {{ zvire.utulek.nazev }}</p>
+        <p><strong>Přijato:</strong> {{ zvire.prijato }}</p>
+        <p><strong>Adoptováno:</strong> {{ zvire.adoptovano|yesno:"Ano,Ne" }}</p>
+
+        <a href="{% url 'upravit_zvire' zvire.id %}" class="btn btn-warning me-2">Upravit</a>
+        <a href="{% url 'smazat_zvire' zvire.id %}" class="btn btn-danger me-2"
+           onclick="return confirm('Opravdu chceš smazat toto zvíře?');">Smazat</a>
+        <a href="{% url 'seznam_zvirat' %}" class="btn btn-secondary mt-3">Zpět na seznam</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

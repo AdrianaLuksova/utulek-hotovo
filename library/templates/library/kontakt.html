@@ -1,0 +1,61 @@
+{% extends 'library/zaklad/base.html' %}
+
+{% block content %}
+    <h1>Kontakt a dotaz</h1>
+    <p>Pro jakékoliv dotazy nás kontaktujte prostřednictvím formuláře nebo nás navštivte na adrese:</p>
+    <p>Útulek "Naše Tlapičky"<br> Adresa: Hlavní ulice 123, Město</p>
+
+    <h2>Pošlete nám dotaz</h2>
+
+    <!-- Zprávy o výsledku odeslání -->
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="alert alert-{{ msg.tags }} alert-dismissible fade show" role="alert">
+                {{ msg }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Zavřít"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form action="{% url 'kontakt' %}" method="POST">
+        {% csrf_token %}
+        <!-- Email -->
+        <div class="col-md-6">
+            <label for="email" class="form-label">Váš e‑mail</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+
+        <!-- Typ dotazu -->
+        <div class="col-md-6">
+            <label for="typ" class="form-label">Typ dotazu</label>
+            <select id="typ" name="typ" class="form-select" required>
+                <option value="">-- Vyberte --</option>
+                {% for code,label in typy %}
+                    <option value="{{ code }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Výběr zvířete -->
+        <div class="col-md-6">
+            <label for="zvire" class="form-label">Vyberte zvíře</label>
+            <select id="zvire" name="zvire" class="form-select" required>
+                <option value="">-- Vyberte zvíře --</option>
+                {% for z in zvirata %}
+                    <option value="{{ z.id }}">{{ z.jmeno }} ({{ z.druh.nazev }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Popis dotazu -->
+        <div class="col-12">
+            <label for="popis" class="form-label">Popis dotazu</label>
+            <textarea id="popis" name="popis" rows="4" class="form-control" required></textarea>
+        </div>
+
+        <!-- Odeslat -->
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Odeslat dotaz</button>
+        </div>
+    </form>
+{% endblock %}

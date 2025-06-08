@@ -1,0 +1,32 @@
+{% extends 'library/zaklad/base.html' %}
+{% load static %}
+
+{% block title %}Archiv adoptovaných zvířat{% endblock %}
+
+{% block content %}
+  <h1>Archiv adoptovaných zvířat</h1>
+
+  <div class="row">
+    {% for zvire in zvirata %}
+      <div class="col-md-4 mb-3">
+        <div class="card h-100 shadow-sm">
+          {% if zvire.fotografie %}
+            <img src="{{ zvire.fotografie.url }}" class="card-img-top"
+                 style="height: 250px; width: 100%; object-fit: cover;" alt="{{ zvire.jmeno }}">
+          {% else %}
+            <img src="{% static 'images/placeholder.png' %}" class="card-img-top"
+                 style="height: 250px; width: 100%; object-fit: cover;" alt="Žádný obrázek">
+          {% endif %}
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ zvire.jmeno }}</h5>
+            <p class="card-text">{{ zvire.druh.nazev }} – {{ zvire.vek }} let</p>
+            <a href="{% url 'detail_zvirete' zvire.id %}" class="btn btn-outline-secondary btn-sm">Zobrazit</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>Žádná adoptovaná zvířata zatím nejsou v archivu.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
+    

@@ -1,0 +1,92 @@
+{% extends 'library/zaklad/base.html' %}
+{% load static %}
+
+{% block title %}Seznam zvířat{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4">Seznam volných zvířat</h1>
+
+
+
+  <!-- Filtrační formulář -->
+  <div id="filtr-form" class="hidden mb-4 p-3 border rounded bg-light">
+    <form method="get">
+      <div class="row g-3">
+        <!-- Druh -->
+        <div class="col-md-3">
+          <label for="druh" class="form-label">Druh</label>
+          <select name="druh" id="druh" class="form-select">
+            <option value="">Všechny</option>
+            {% for d in druhy %}
+              <option value="{{ d.id }}" {% if filtry.druh == d.id|stringformat:"s" %}selected{% endif %}>
+                {{ d.nazev }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Plemeno -->
+        <div class="col-md-3">
+          <label for="plemeno" class="form-label">Plemeno</label>
+          <input type="text" name="plemeno" id="plemeno"
+                 value="{{ filtry.plemeno }}" class="form-control">
+        </div>
+
+        <!-- Věk -->
+        <div class="col-md-2">
+          <label for="vek" class="form-label">Věk</label>
+          <input type="number" name="vek" id="vek"
+                 value="{{ filtry.vek }}" class="form-control">
+        </div>
+
+        <!-- Stav zdraví -->
+        <div class="col-md-3">
+          <label for="stav_zdravi" class="form-label">Stav zdraví</label>
+          <select name="stav_zdravi" id="stav_zdravi" class="form-select">
+            <option value="">Všechny</option>
+            <option value="zdravy" {% if filtry.stav_zdravi == 'zdravy' %}selected{% endif %}>
+              Zdravý
+            </option>
+            <option value="leci_se" {% if filtry.stav_zdravi == 'leci_se' %}selected{% endif %}>
+              Léčí se
+            </option>
+            <option value="nemocny" {% if filtry.stav_zdravi == 'nemocny' %}selected{% endif %}>
+              Nemocný
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Použít filtr</button>
+        <a href="{% url 'seznam_zvirat' %}" class="btn btn-secondary">Zrušit filtr</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Výpis zvířat -->
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for z in zvirata %}
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          {% if z.fotografie %}
+            <img src="{{ z.fotografie.url }}" class="card-img-top object-fit-cover"
+                 style="height: 250px; width: 100%; object-fit: cover;" alt="{{ z.jmeno }}">
+          {% else %}
+            <img src="{% static 'images/placeholder.png' %}" class="card-img-top"
+                 style="height: 250px; width: 100%; object-fit: cover;" alt="Žádný obrázek">
+          {% endif %}
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ z.jmeno }}</h5>
+            {% if z.id %}
+              <a href="{% url 'detail_zvirete' z.id %}" class="btn btn-primary btn-sm">Detail</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>Žádná zvířata k zobrazení.</p>
+    {% endfor %}
+  </div>
+
+{% endblock %}

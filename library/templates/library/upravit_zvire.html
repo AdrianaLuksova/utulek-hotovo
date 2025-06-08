@@ -1,0 +1,13 @@
+{% extends 'library/zaklad/base.html' %}
+
+
+{% block content %}
+  <h1>Upravit zvíře</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Uložit změny</button>
+  </form>
+  <a href="{% url 'detail_zvirete' zvire.id %}">Zpět</a>
+
+{% endblock %}

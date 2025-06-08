@@ -1,0 +1,56 @@
+{% extends 'library/zaklad/base.html' %}
+{% load static %}
+
+{% block content %}
+  <h1>Vítejte</h1>
+
+  <!-- Úvodní text -->
+  <section class="mb-5">
+    <p>
+      Vítejte v online databázi <strong>volných zvířat z vybraných útulků</strong>. Naším cílem je pomoci
+      opuštěným nebo nalezeným zvířatům najít nový domov – bezpečné místo plné lásky a péče.
+    </p>
+    <p>
+      Ve spolupráci s útulky po celé republice shromažďujeme informace o zvířatech, která <strong>čekají
+      na adopci</strong>. V této databázi najdete pouze ta zvířata, která dosud nenašla nového majitele.
+      Adoptovaná zvířata jsou z přehledu automaticky skryta.
+    </p>
+    <p>
+      Každý záznam obsahuje fotografii, základní informace i odkaz na detailní profil, kde se dozvíte
+      více o povaze, zdravotním stavu a potřebách konkrétního zvířátka.
+    </p>
+    <p>
+      Prohlédněte si <a href="{% url 'seznam_zvirat' %}">Seznam zvířat k adopci</a> a pokud vás některý z našich
+      svěřenců zaujme, neváhejte nás <a href="{% url 'kontakt' %}">kontaktovat</a> – rádi vám pomůžeme domluvit
+      osobní návštěvu a další kroky k adopci.
+    </p>
+    <p>
+      Děkujeme, že pomáháte měnit osudy zvířat k lepšímu. Společně jim můžeme dát druhou šanci na život.
+    </p>
+  </section>
+
+  <!-- Carousel -->
+  <div id="zvireciCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'images/images.jpg' %}" class="d-block w-100" alt="Pes 1" style="max-height: 400px; object-fit: cover;">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/1000_F_467781669_SBt9sW0NrlxEIkdmNsDzBFEbOywOhID2.jpg' %}" class="d-block w-100" alt="Pes 2" style="max-height: 400px; object-fit: cover;">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/1000_F_554802034_j3foMM3YWFgJDMNIcPWwBmatUN7tTITM.jpg' %}" class="d-block w-100" alt="Pes 3" style="max-height: 400px; object-fit: cover;">
+      </div>
+    </div>
+
+    <!-- Navigace -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#zvireciCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Předchozí</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#zvireciCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Další</span>
+    </button>
+  </div>
+{% endblock %}
